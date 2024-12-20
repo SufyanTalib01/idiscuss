@@ -1,0 +1,1 @@
+<div class="contaiener-fliud bg-dark text-light text-center">copyright © 2024 all rights reserved</div>
