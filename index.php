@@ -24,19 +24,19 @@
     <!-- CAROUSEL  -->
     <div class="container-fluid px-0" style="height: 400px; overflow: hidden;">
         <div id="carouselExampleControls" style="height: 100%;" class="carousel slide" data-ride="carousel ">
-            <div class="carousel-inner h-100">
+            <div class="carousel-inner h-100">  
                 <div class="carousel-item active h-100">
-                    <img class="d-block w-100 h-100 object-fit-none"
+                    <img class="d-block w-100 h-100 object-fit-contain"
                         src="https://plus.unsplash.com/premium_photo-1733864821625-8c5914eb183e?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                         alt="First slide">
                 </div>
                 <div class="carousel-item h-100">
-                    <img class="d-block w-100 h-100 object-fit-none"
+                    <img class="d-block w-100 h-100 object-fit-contain"
                         src="https://plus.unsplash.com/premium_photo-1733864821625-8c5914eb183e?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                         alt="Second slide">
                 </div>
                 <div class="carousel-item h-100">
-                    <img class="d-block w-100 h-100 object-fit-none"
+                    <img class="d-block w-100 h-100 object-fit-contain"
                         src="https://plus.unsplash.com/premium_photo-1733864821625-8c5914eb183e?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                         alt="Third slide">
                 </div>
@@ -57,6 +57,7 @@
     <div class="container">
         <h3 class="text-center my-3">I-DISCUSS WEBSITE</h3>
         <div class="row">
+            
             <?php 
             $sql = "SELECT * FROM `categories`";
             $result = mysqli_query($connection , $sql);
@@ -68,9 +69,9 @@
                         src="https://media.istockphoto.com/id/1804857934/photo/software-program-source-code-of-python-ide-code-editor-display-photo.jpg?s=1024x1024&w=is&k=20&c=Bum7cGyE7KtZH8h8uIM2ZX4crJ3vPliNjE4Uy37lTJE="
                         alt="Card image cap">
                         <div class="card-body">
-                        <h5 class="card-title">'. $row['category_name'] .'</h5>
+                        <h5 class="card-title"> <a href="threadslist.php?categoryid='.$row['category_id'] .' ">'. $row['category_name'] .'</a>  </h5>
                         <p class="card-text">'. substr($row['category_description'] , 0 ,100) .'...</p>
-                        <a href="/threads.php" class="btn btn-primary">view thread</a>
+                        <a href="/threadslist.php?categoryid='.$row['category_id'].'" class="btn btn-primary">view thread</a>
                         </div>
                     </div>
                 </div>';
