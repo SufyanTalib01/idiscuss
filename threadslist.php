@@ -49,27 +49,25 @@
         if($_SERVER["REQUEST_METHOD"] == 'POST'){
             $questionTitle = $_POST['questiontitle'];
             $questionDesc = $_POST['questiondesc'];
-
-            $sql = "INSERT INTO `threads_questions` (`threads_questions_title`, `threads_questions_description`, `threads_questions_date_time`) VALUES ('$questionTitle', '$questionDesc',)";
-
-            $result = mysqli_query($connection , $sql);
-
+            $sql = "INSERT INTO `threads_questions` (`threads_questions_title`, `threads_questions_description`) VALUES ('$questionTitle', '$questionDesc')";
+            $result = mysqli_query($connection , $sql); 
         }
         
     ?>
     <div class="container">
-        <form method="post">
+        <form method="POST">
             <div class="form-group">
                 <label for="questiontitle">Title</label>
-                <input type="text" class="form-control" id="questiontitle" name="questiontitle" aria-describedby="emailHelp"
-                    placeholder="Title">
-                
+                <input required type="text" class="form-control" id="questiontitle" name="questiontitle"
+                    aria-describedby="emailHelp" placeholder="Title">
+
             </div>
             <div class="form-group">
                 <label for="questiondesc">Description</label>
-                <textarea rows="3" type="text" class="form-control" name="questiondesc" id="questiondesc" placeholder="Description"></textarea>
+                <textarea required rows="3" type="text" class="form-control" name="questiondesc" id="questiondesc"
+                    placeholder="Description"></textarea>
             </div>
-            
+
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>
@@ -77,33 +75,41 @@
     <!-- QUESTIONS  -->
     <div class="container">
         <h2 class="my-3">Browse Questions</h2>
-        <div class="media my-2">
-            <img class="mr-3" src="/images/user.jpg" width="50" alt="Generic placeholder image">
-            <div class="media-body">
-                <h5 class="mt-0">Media heading</h5>
-                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus
-                odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate
-                fringilla. Donec lacinia congue felis in faucibus.
-            </div>
-        </div>
-        <div class="media my-2">
-            <img class="mr-3" src="/images/user.jpg" width="50" alt="Generic placeholder image">
-            <div class="media-body">
-                <h5 class="mt-0">Media heading</h5>
-                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus
-                odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate
-                fringilla. Donec lacinia congue felis in faucibus.
-            </div>
-        </div>
-        <div class="media my-2">
-            <img class="mr-3" src="/images/user.jpg" width="50" alt="Generic placeholder image">
-            <div class="media-body">
-                <h5 class="mt-0">Media heading</h5>
-                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus
-                odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate
-                fringilla. Donec lacinia congue felis in faucibus.
-            </div>
-        </div>
+
+        <?php 
+            $noResult = false;
+            $sql = "SELECT * FROM `threads_questions`";
+            $result = mysqli_query($connection , $sql);
+            $num = mysqli_num_rows($result);
+
+            if($num == 0){
+                echo '<div class="jumbotron jumbotron-fluid">
+                    <div class="container">
+                        <h1 class="display-4">No Result</h1>
+                        <p class="lead">Please Write the Question to become the first</p>
+                    </div>
+                    </div>';
+            }
+            else{
+                while($row = mysqli_fetch_assoc($result)){
+                    echo '<div class="media my-3">
+                <img class="mr-3" src="/images/user.jpg" width="50" alt="Generic placeholder image">
+                <div class="media-body">
+                    <h5 class="mt-0"> <a href="/thread.php?threadid='.$row['threads_questions_id'].'" style = "color: black">' . $row['threads_questions_title'] .'</a> </h5>
+                    <p> ' . substr($row['threads_questions_description'] , 0 , 20) . '... </p>
+                </div>
+                </div>';
+                } 
+            }
+            
+            
+            
+
+        ?>
+
+        
+        
+
     </div>
 
     <?php require 'components/_footer.php'; ?>
